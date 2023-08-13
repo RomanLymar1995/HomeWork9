@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class MyArrayList {
+class MyArrayList<T> {
     private Object[] data;
     private int size;
     private static final int DEFAULT_CAPACITY = 10;
@@ -10,7 +10,7 @@ public class MyArrayList {
         size = 0;
     }
 
-    public void add(Object value) {
+    public void add(T value) {
         if (size == data.length) {
             ensureCapacity();
         }
@@ -19,7 +19,7 @@ public class MyArrayList {
 
     public void remove(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Invalid index");
+            throw new IndexOutOfBoundsException("Недопустимый индекс");
         }
 
         for (int i = index; i < size - 1; i++) {
@@ -30,9 +30,7 @@ public class MyArrayList {
     }
 
     public void clear() {
-        for (int i = 0; i < size; i++) {
-            data[i] = null;
-        }
+        Arrays.fill(data, null);
         size = 0;
     }
 
@@ -40,11 +38,12 @@ public class MyArrayList {
         return size;
     }
 
-    public Object get(int index) {
+    @SuppressWarnings("unchecked")
+    public T get(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Invalid index");
+            throw new IndexOutOfBoundsException("Недопустимый индекс");
         }
-        return data[index];
+        return (T) data[index];
     }
 
     private void ensureCapacity() {

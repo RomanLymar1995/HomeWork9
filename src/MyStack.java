@@ -1,14 +1,14 @@
 import java.util.EmptyStackException;
 
-public class MyStack {
+class MyStack<T> {
     private Node top;
     private int size;
 
     private class Node {
-        Object data;
+        T data;
         Node next;
 
-        Node(Object value) {
+        Node(T value) {
             data = value;
             next = null;
         }
@@ -19,7 +19,7 @@ public class MyStack {
         size = 0;
     }
 
-    public void push(Object value) {
+    public void push(T value) {
         Node newNode = new Node(value);
         newNode.next = top;
         top = newNode;
@@ -28,7 +28,7 @@ public class MyStack {
 
     public void remove(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Invalid index");
+            throw new IndexOutOfBoundsException("Недопустимый индекс");
         }
 
         if (index == 0) {
@@ -56,18 +56,18 @@ public class MyStack {
         return size;
     }
 
-    public Object peek() {
+    public T peek() {
         if (top == null) {
             throw new EmptyStackException();
         }
         return top.data;
     }
 
-    public Object pop() {
+    public T pop() {
         if (top == null) {
             throw new EmptyStackException();
         }
-        Object value = top.data;
+        T value = top.data;
         top = top.next;
         size--;
         return value;

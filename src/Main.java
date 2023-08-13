@@ -1,8 +1,9 @@
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
 
-        MyArrayList myArrayList = new MyArrayList();
-
+        MyArrayList<String> myArrayList = new MyArrayList<>();
 
         myArrayList.add("Apple");
         myArrayList.add("Banana");

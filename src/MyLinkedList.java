@@ -1,14 +1,14 @@
-public class MyLinkedList {
+class MyLinkedList<T> {
     private Node head;
     private Node tail;
     private int size;
 
     private class Node {
-        Object data;
+        T data;
         Node prev;
         Node next;
 
-        Node(Object value) {
+        Node(T value) {
             data = value;
             prev = null;
             next = null;
@@ -21,7 +21,7 @@ public class MyLinkedList {
         size = 0;
     }
 
-    public void add(Object value) {
+    public void add(T value) {
         Node newNode = new Node(value);
         if (head == null) {
             head = newNode;
@@ -36,7 +36,7 @@ public class MyLinkedList {
 
     public void remove(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Invalid index");
+            throw new IndexOutOfBoundsException("Недопустимый индекс");
         }
 
         Node current = head;
@@ -76,9 +76,9 @@ public class MyLinkedList {
         return size;
     }
 
-    public Object get(int index) {
+    public T get(int index) {
         if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Invalid index");
+            throw new IndexOutOfBoundsException("Недопустимый индекс");
         }
 
         Node current = head;

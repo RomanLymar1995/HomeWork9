@@ -1,33 +1,33 @@
-public class MyHashMap {
-    private Node[] table;
+class MyHashMap<K, V> {
+    private Node<K, V>[] table;
     private int size;
     private static final int DEFAULT_CAPACITY = 16;
 
+    @SuppressWarnings("unchecked")
+    public MyHashMap() {
+        table = new Node[DEFAULT_CAPACITY];
+        size = 0;
+    }
 
-    private static class Node {
-        Object key;
-        Object value;
-        Node next;
+    private static class Node<K, V> {
+        K key;
+        V value;
+        Node<K, V> next;
 
-        Node(Object key, Object value) {
+        Node(K key, V value) {
             this.key = key;
             this.value = value;
             this.next = null;
         }
     }
 
-    public MyHashMap() {
-        table = new Node[DEFAULT_CAPACITY];
-        size = 0;
-    }
-
-    private int hash(Object key) {
+    private int hash(K key) {
         return Math.abs(key.hashCode()) % table.length;
     }
 
-    public void put(Object key, Object value) {
+    public void put(K key, V value) {
         int index = hash(key);
-        Node newNode = new Node(key, value);
+        Node<K, V> newNode = new Node<>(key, value);
 
         if (table[index] == null) {
             table[index] = newNode;
@@ -39,10 +39,10 @@ public class MyHashMap {
         size++;
     }
 
-    public void remove(Object key) {
+    public void remove(K key) {
         int index = hash(key);
-        Node prev = null;
-        Node current = table[index];
+        Node<K, V> prev = null;
+        Node<K, V> current = table[index];
 
         while (current != null) {
             if (current.key.equals(key)) {
@@ -70,9 +70,9 @@ public class MyHashMap {
         return size;
     }
 
-    public Object get(Object key) {
+    public V get(K key) {
         int index = hash(key);
-        Node current = table[index];
+        Node<K, V> current = table[index];
 
         while (current != null) {
             if (current.key.equals(key)) {
