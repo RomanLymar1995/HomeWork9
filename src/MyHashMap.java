@@ -21,26 +21,47 @@ class MyHashMap<K, V> {
         }
     }
 
-    private int hash(K key) {
-        return Math.abs(key.hashCode()) % table.length;
+    private int hash(K key, int capacity) {
+        return Math.abs(key.hashCode()) % capacity;
+    }
+
+    private void resizeTable() {
+        int newCapacity = table.length * 2;
+        Node<K, V>[] newTable = new Node[newCapacity];
+
+        for (Node<K, V> node : table) {
+            while (node != null) {
+                Node<K, V> next = node.next;
+                int newIndex = hash(node.key, newCapacity);
+                node.next = newTable[newIndex];
+                newTable[newIndex] = node;
+                node = next;
+            }
+        }
+
+        table = newTable;
     }
 
     public void put(K key, V value) {
-        int index = hash(key);
+        int index = hash(key, table.length);
         Node<K, V> newNode = new Node<>(key, value);
 
         if (table[index] == null) {
             table[index] = newNode;
         } else {
-
             newNode.next = table[index];
             table[index] = newNode;
         }
         size++;
+
+        // Check if resizing is needed
+        if ((double) size / table.length > 0.75) {
+            resizeTable();
+        }
     }
 
     public void remove(K key) {
-        int index = hash(key);
+        int index = hash(key, table.length);
         Node<K, V> prev = null;
         Node<K, V> current = table[index];
 
@@ -71,7 +92,7 @@ class MyHashMap<K, V> {
     }
 
     public V get(K key) {
-        int index = hash(key);
+        int index = hash(key, table.length);
         Node<K, V> current = table[index];
 
         while (current != null) {

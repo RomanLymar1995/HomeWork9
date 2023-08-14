@@ -1,130 +1,82 @@
-import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 public class Main {
     public static void main(String[] args) {
+        demonstrateLinkedList();
+        demonstrateQueue();
+        demonstrateStack();
+        demonstrateHashMap();
+    }
 
-        MyArrayList<String> myArrayList = new MyArrayList<>();
+    public static void demonstrateLinkedList() {
+        MyLinkedList<String> myLinkedList = new MyLinkedList<>();
+        myLinkedList.add("Кот");
+        myLinkedList.add("Собака");
+        myLinkedList.add("Слон");
 
-        myArrayList.add("Apple");
-        myArrayList.add("Banana");
-        myArrayList.add("Orange");
-        myArrayList.add("Mango");
-
-
-        System.out.println("Size: " + myArrayList.size());
-        System.out.println("Element at index 2: " + myArrayList.get(2));
-
-
-        myArrayList.remove(1);
-
-
-        System.out.println("Size after removal: " + myArrayList.size());
-        System.out.println("Element at index 1 after removal: " + myArrayList.get(1));
-
-
-        myArrayList.clear();
-
-
-        System.out.println("Size after clearing: " + myArrayList.size());
-
-
-        MyLinkedList myLinkedList = new MyLinkedList();
-
-
-        myLinkedList.add("Cat");
-        myLinkedList.add("Dog");
-        myLinkedList.add("Elephant");
-
-
-        System.out.println("Size: " + myLinkedList.size());
-        System.out.println("Element at index 1: " + myLinkedList.get(1));
-
+        System.out.println("Размер: " + myLinkedList.size());
+        System.out.println("Элемент по индексу 1: " + myLinkedList.get(1));
 
         myLinkedList.remove(0);
 
-
-        System.out.println("Size after removal: " + myLinkedList.size());
-        System.out.println("Element at index 0 after removal: " + myLinkedList.get(0));
-
+        System.out.println("Размер после удаления: " + myLinkedList.size());
+        System.out.println("Элемент по индексу 0 после удаления: " + myLinkedList.get(0));
 
         myLinkedList.clear();
+        System.out.println("Размер после очистки: " + myLinkedList.size());
+    }
 
+    public static void demonstrateQueue() {
+        MyQueue<String> myQueue = new MyQueue<>();
+        myQueue.add("Красный");
+        myQueue.add("Зеленый");
+        myQueue.add("Синий");
 
-        System.out.println("Size after clearing: " + myLinkedList.size());
-
-
-        MyQueue myQueue = new MyQueue();
-
-
-        myQueue.add("Red");
-        myQueue.add("Green");
-        myQueue.add("Blue");
-
-
-        System.out.println("Size: " + myQueue.size());
-        System.out.println("Element at front: " + myQueue.peek());
-
+        System.out.println("Размер: " + myQueue.size());
+        System.out.println("Элемент в начале: " + myQueue.peek());
 
         myQueue.poll();
 
-
-        System.out.println("Size after polling: " + myQueue.size());
-        System.out.println("Element at front after polling: " + myQueue.peek());
-
+        System.out.println("Размер после извлечения: " + myQueue.size());
+        System.out.println("Элемент в начале после извлечения: " + myQueue.peek());
 
         myQueue.clear();
+        System.out.println("Размер после очистки: " + myQueue.size());
+    }
 
-
-        System.out.println("Size after clearing: " + myQueue.size());
-
-
-        MyStack myStack = new MyStack();
-
-
+    public static void demonstrateStack() {
+        MyStack<Integer> myStack = new MyStack<>();
         myStack.push(1);
         myStack.push(2);
         myStack.push(3);
 
-
-        System.out.println("Size: " + myStack.size());
-        System.out.println("Element at top: " + myStack.peek());
-
+        System.out.println("Размер: " + myStack.size());
+        System.out.println("Элемент на вершине: " + myStack.peek());
 
         myStack.pop();
 
-
-        System.out.println("Size after popping: " + myStack.size());
-        System.out.println("Element at top after popping: " + myStack.peek());
-
+        System.out.println("Размер после извлечения: " + myStack.size());
+        System.out.println("Элемент на вершине после извлечения: " + myStack.peek());
 
         myStack.clear();
+        System.out.println("Размер после очистки: " + myStack.size());
+    }
 
+    public static void demonstrateHashMap() {
+        MyHashMap<String, Integer> myHashMap = new MyHashMap<>();
+        myHashMap.put("яблоко", 50);
+        myHashMap.put("банан", 30);
+        myHashMap.put("апельсин", 40);
 
-        System.out.println("Size after clearing: " + myStack.size());
+        System.out.println("Размер: " + myHashMap.size());
+        System.out.println("Значение для ключа 'банан': " + myHashMap.get("банан"));
 
+        myHashMap.remove("яблоко");
 
-        MyHashMap myHashMap = new MyHashMap();
-
-
-        myHashMap.put("apple", 50);
-        myHashMap.put("banana", 30);
-        myHashMap.put("orange", 40);
-
-
-        System.out.println("Size: " + myHashMap.size());
-        System.out.println("Value for key 'banana': " + myHashMap.get("banana"));
-
-
-        myHashMap.remove("apple");
-
-
-        System.out.println("Size after removal: " + myHashMap.size());
-        System.out.println("Value for key 'apple' after removal: " + myHashMap.get("apple"));
-
+        System.out.println("Размер после удаления: " + myHashMap.size());
+        System.out.println("Значение для ключа 'яблоко' после удаления: " + myHashMap.get("яблоко"));
 
         myHashMap.clear();
-
-
-        System.out.println("Size after clearing: " + myHashMap.size());
+        System.out.println("Размер после очистки: " + myHashMap.size());
     }
 }

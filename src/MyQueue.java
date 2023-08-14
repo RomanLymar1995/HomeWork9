@@ -1,5 +1,4 @@
 import java.util.NoSuchElementException;
-
 class MyQueue<T> {
     private Node front;
     private Node rear;
@@ -34,11 +33,7 @@ class MyQueue<T> {
     }
 
     public void clear() {
-        while (front != null) {
-            Node next = front.next;
-            front.next = null;
-            front = next;
-        }
+        front = null;
         rear = null;
         size = 0;
     }

@@ -1,5 +1,4 @@
 import java.util.EmptyStackException;
-
 class MyStack<T> {
     private Node top;
     private int size;
@@ -27,28 +26,32 @@ class MyStack<T> {
     }
 
     public void remove(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Недопустимый индекс");
-        }
+        Node current = getNodeByIndex(index);
 
         if (index == 0) {
             top = top.next;
         } else {
-            Node current = top;
-            for (int i = 0; i < index - 1; i++) {
-                current = current.next;
-            }
-            current.next = current.next.next;
+            Node prev = getNodeByIndex(index - 1);
+            prev.next = current.next;
         }
         size--;
     }
 
-    public void clear() {
-        while (top != null) {
-            Node next = top.next;
-            top.next = null;
-            top = next;
+    private Node getNodeByIndex(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Недопустимый индекс");
         }
+
+        Node current = top;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+
+        return current;
+    }
+
+    public void clear() {
+        top = null;
         size = 0;
     }
 

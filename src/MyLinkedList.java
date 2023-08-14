@@ -35,14 +35,7 @@ class MyLinkedList<T> {
     }
 
     public void remove(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException("Недопустимый индекс");
-        }
-
-        Node current = head;
-        for (int i = 0; i < index; i++) {
-            current = current.next;
-        }
+        Node current = getNodeByIndex(index);
 
         if (current.prev != null) {
             current.prev.next = current.next;
@@ -61,22 +54,7 @@ class MyLinkedList<T> {
         size--;
     }
 
-    public void clear() {
-        while (head != null) {
-            Node next = head.next;
-            head.prev = null;
-            head.next = null;
-            head = next;
-        }
-        tail = null;
-        size = 0;
-    }
-
-    public int size() {
-        return size;
-    }
-
-    public T get(int index) {
+    private Node getNodeByIndex(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Недопустимый индекс");
         }
@@ -86,6 +64,20 @@ class MyLinkedList<T> {
             current = current.next;
         }
 
-        return current.data;
+        return current;
+    }
+
+    public void clear() {
+        head = null;
+        tail = null;
+        size = 0;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public T get(int index) {
+        return getNodeByIndex(index).data;
     }
 }
