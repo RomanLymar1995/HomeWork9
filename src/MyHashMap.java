@@ -2,6 +2,7 @@ class MyHashMap<K, V> {
     private Node<K, V>[] table;
     private int size;
     private static final int DEFAULT_CAPACITY = 16;
+    private static final double LOAD_FACTOR = 0.75;
 
     @SuppressWarnings("unchecked")
     public MyHashMap() {
@@ -19,6 +20,10 @@ class MyHashMap<K, V> {
             this.value = value;
             this.next = null;
         }
+    }
+
+    private int getIndex(K key) {
+        return hash(key, table.length);
     }
 
     private int hash(K key, int capacity) {
@@ -43,7 +48,7 @@ class MyHashMap<K, V> {
     }
 
     public void put(K key, V value) {
-        int index = hash(key, table.length);
+        int index = getIndex(key);
         Node<K, V> newNode = new Node<>(key, value);
 
         if (table[index] == null) {
@@ -54,14 +59,13 @@ class MyHashMap<K, V> {
         }
         size++;
 
-        // Check if resizing is needed
-        if ((double) size / table.length > 0.75) {
+        if ((double) size / table.length > LOAD_FACTOR) {
             resizeTable();
         }
     }
 
     public void remove(K key) {
-        int index = hash(key, table.length);
+        int index = getIndex(key);
         Node<K, V> prev = null;
         Node<K, V> current = table[index];
 
@@ -81,18 +85,17 @@ class MyHashMap<K, V> {
     }
 
     public void clear() {
-        for (int i = 0; i < table.length; i++) {
-            table[i] = null;
-        }
+        table = new Node[DEFAULT_CAPACITY];
         size = 0;
     }
+
 
     public int size() {
         return size;
     }
 
     public V get(K key) {
-        int index = hash(key, table.length);
+        int index = getIndex(key);
         Node<K, V> current = table[index];
 
         while (current != null) {
