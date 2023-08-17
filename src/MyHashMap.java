@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 class MyHashMap<K, V> {
     private Node<K, V>[] table;
     private int size;
@@ -23,13 +25,20 @@ class MyHashMap<K, V> {
     }
 
     private int getIndex(K key) {
+        if (key == null) {
+            return 0; // Special handling for null key
+        }
         return hash(key, table.length);
     }
 
     private int hash(K key, int capacity) {
+        if (key == null) {
+            return 0; // Special handling for null key
+        }
         return Math.abs(key.hashCode()) % capacity;
     }
 
+    @SuppressWarnings("unchecked")
     private void resizeTable() {
         int newCapacity = table.length * 2;
         Node<K, V>[] newTable = new Node[newCapacity];
@@ -70,7 +79,7 @@ class MyHashMap<K, V> {
         Node<K, V> current = table[index];
 
         while (current != null) {
-            if (current.key.equals(key)) {
+            if ((key == null && current.key == null) || (key != null && key.equals(current.key))) {
                 if (prev == null) {
                     table[index] = current.next;
                 } else {
@@ -85,10 +94,9 @@ class MyHashMap<K, V> {
     }
 
     public void clear() {
-        table = new Node[DEFAULT_CAPACITY];
+        Arrays.fill(table, null);
         size = 0;
     }
-
 
     public int size() {
         return size;
@@ -99,7 +107,7 @@ class MyHashMap<K, V> {
         Node<K, V> current = table[index];
 
         while (current != null) {
-            if (current.key.equals(key)) {
+            if ((key == null && current.key == null) || (key != null && key.equals(current.key))) {
                 return current.value;
             }
             current = current.next;
